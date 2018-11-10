@@ -3,8 +3,8 @@ import npyscreen
 import time
 from collections import OrderedDict
 from data import elementStats, chemInfo, tableElements, periods
-   
- 
+from equationBalancer import balance   
+
 # Main form with a periodic table and text box
 class mainForm(npyscreen.ActionFormMinimal):
 
@@ -12,6 +12,7 @@ class mainForm(npyscreen.ActionFormMinimal):
     def activate(self):
         self.edit()
         self.parentApp.setNextForm("INFO")
+    
 
     # Function called when user presses search
     def searchButton(self):
@@ -23,44 +24,104 @@ class mainForm(npyscreen.ActionFormMinimal):
 
         # Setting info grid values from relevant element data
         if  (info.setValues(info, self.typedElement)) == False:
-            self.element.value=None
+            self.element.value = None
             npyscreen.notify_confirm("Sorry, that is not an element.", title='Really? Try again.', editw=1)
             self.edit()
         else:
             toInfo.element.values = info.setValues(info, self.typedElement)
             self.parentApp.switchForm("INFO")
+            self.element.editing = True
 
     # Initialize table and text box
     def create(self):
 
         # Periodic table
-        #self.table = self.add(pTable, values=pTable.elements, col_titles=pTable.periods, relx=2, rely=2, width=72, columns=18, editable=False)
-        self.table = self.add(npyscreen.GridColTitles, values=tableElements, col_titles=periods, relx=2, rely=2, width=72, columns=18, editable=False)
+        self.table = self.add(npyscreen.GridColTitles,
+                values=tableElements,
+                col_titles=periods,
+                relx=2,
+                rely=2,
+                width=73,
+                columns=18,
+                editable=False)
 
         # Search bar to enter desired element
-        self.element = self.add(npyscreen.TitleText, name="Element: ", begin_entry_at=12, rely=self.table.rely+13) 
+        self.element = self.add(npyscreen.TitleText,
+                name="Element Lookup: ",
+                use_two_lines = False,
+                begin_entry_at = 16,
+                rely=self.table.rely + 13) 
         
         # Search button to activate info form
-        self.button = self.add(npyscreen.ButtonPress, name="Search", begin_entry_at=12, rely=self.table.rely+15, relx=2, when_pressed_function=self.searchButton)
+        self.button = self.add(npyscreen.ButtonPress,
+                name="Search",
+                begin_entry_at=12,
+                rely=self.table.rely+15,
+                relx=2,
+                when_pressed_function = self.searchButton)
         
         # Adding info panel below table
         self.helpfulInfo = self.add(npyscreen.BoxTitle,
                 _contained_widget=npyscreen.TitleFixedText,
-                title="Useful Information",
-                rely=self.button.rely+2,
-                values=chemInfo,
-                relx=2,
-                editable=True,
-                editw=1,
-                width=80,
-                name='Useful Info - Press L to search')
+                title = "Useful Information",
+                rely = self.button.rely+2,
+                values = chemInfo,
+                relx = 2,
+                editable = True,
+                editw = 1,
+                width = 73,
+                name = 'Chemistry Database')
+        
+        self.equationBalancer = self.add(npyscreen.BoxTitle,
+                _contained_widget=npyscreen.TitleFixedText,
+                name="Equation Balancer: Use format below",
+                values=[' ', 'C₇H₁₆ + O₂ → CO₂ + H₂O | C7H16+O2->CO2+H2O'],
+                relx=75,
+                rely=19,
+                width = 50,
+                height = 9,
+                editable=False)
+        
+        self.equationBalancerField = self.add(npyscreen.TitleText,
+                name = ':',
+                relx = 77,
+                rely = 23,
+                use_two_lines = False,
+                begin_entry_at = 2,
+                width = 45)
 
-    # Switch to INFO form when OK is pressed
+        self.equationBalancerOutput = self.add(npyscreen.FixedText,
+                relx = 77,
+                rely = 26,
+                value = None)
+        
+
+        self.molarMassCalculator = self.add(npyscreen.BoxTitle,
+                _contained_widget=npyscreen.TitleFixedText,
+                name="Molar Mass Calculator:",
+                values=[' '],
+                relx=75,
+                rely=28,
+                width = 50,
+                height = 12,
+                editable=False)
+
+
+        #TODO add solver button
+        #self.equationBalancerButton = self.add(solveButton,
+        #        relx=76,
+        #        rely=25,
+        #        width = 5, 
+        #        name='Solve',)
+
+
+    # Exit program form when OK is pressed
     def on_ok(self):
         sys.exit()        
 
 class info(npyscreen.Form):
-    
+   
+    # Generate list of properties for input element
     def setValues(self, element):
         
         # Check to see if user input is valid
