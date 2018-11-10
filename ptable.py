@@ -1,3 +1,4 @@
+import sys
 import npyscreen
 from collections import OrderedDict
 
@@ -40,25 +41,15 @@ class pTable(npyscreen.GridColTitles, npyscreen.ButtonPress):
         
  
 # Main form with a periodic table and text box
-class mainForm(npyscreen.ActionForm):
+class mainForm(npyscreen.ActionFormMinimal):
 
     # Enables editing and points to next form
     def activate(self):
         self.edit()
         self.parentApp.setNextForm("INFO")
 
-    # Initialize table and text box
-    def create(self):
-        self.table = self.add(pTable, values=pTable.elements, col_titles=pTable.periods, relx=5, rely=2, width=80, columns=18, editable=False)
-        self.element = self.add(npyscreen.TitleText, name="Element: ", begin_entry_at=12, rely=self.table.rely+13) 
-
-    def getTypedElement(self):
-        typedElement = self.element.value
-        return typedElement
-
-    # Switch to INFO form when OK is pressed
-    def on_ok(self):
-        
+    # Function called when user presses search
+    def searchButton(self):
         # set variable in parent app to user input
         self.typedElement = self.element.value
 
@@ -68,8 +59,17 @@ class mainForm(npyscreen.ActionForm):
         # Setting info grid values from relevant element data
         toInfo.element.values = info.setValues(info, self.typedElement)
 
-        
         self.parentApp.switchForm("INFO")
+
+    # Initialize table and text box
+    def create(self):
+        self.table = self.add(pTable, values=pTable.elements, col_titles=pTable.periods, relx=2, rely=2, width=72, columns=18, editable=False)
+        self.element = self.add(npyscreen.TitleText, name="Element: ", begin_entry_at=12, rely=self.table.rely+13) 
+        self.button = self.add(npyscreen.ButtonPress, name="Search", begin_entry_at=12, rely=self.table.rely+15, relx=2, when_pressed_function=self.searchButton)
+    
+    # Switch to INFO form when OK is pressed
+    def on_ok(self):
+        sys.exit()        
 
 class info(npyscreen.Form):
     
@@ -92,10 +92,12 @@ class info(npyscreen.Form):
     def activate(self):
         self.edit()
         self.parentApp.setNextForm("MAIN")
+        mainForm = self.parentApp.getForm("MAIN")
+        mainForm.element.value=None
     
     # Initialize information
     def create(self):
-        self.element = self.add(elementData, editable=False, width=130)
+        self.element = self.add(elementData, editable=False, width=160)
 
 ####################################
 # App and Form initialized and run #
