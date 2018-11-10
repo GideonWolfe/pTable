@@ -1,5 +1,6 @@
 import sys
 import npyscreen
+import time
 from collections import OrderedDict
 
 class elementData(npyscreen.SimpleGrid):
@@ -57,9 +58,13 @@ class mainForm(npyscreen.ActionFormMinimal):
         toInfo = self.parentApp.getForm("INFO")
 
         # Setting info grid values from relevant element data
-        toInfo.element.values = info.setValues(info, self.typedElement)
-
-        self.parentApp.switchForm("INFO")
+        if  (info.setValues(info, self.typedElement)) == False:
+            self.element.value=None
+            npyscreen.notify_confirm("Sorry, not an element.", title='Really?', editw=1)
+            self.edit()
+        else:
+            toInfo.element.values = info.setValues(info, self.typedElement)
+            self.parentApp.switchForm("INFO")
 
     # Initialize table and text box
     def create(self):
@@ -74,6 +79,10 @@ class mainForm(npyscreen.ActionFormMinimal):
 class info(npyscreen.Form):
     
     def setValues(self, element):
+        
+        # Check to see if user input is valid
+        if element not in elementData.elements.keys():
+            return False
         
         # Dictionary of element properties
         properties = elementData.elements[element]
@@ -106,8 +115,9 @@ class myTUI(npyscreen.NPSAppManaged):
     
 
     def onStart(self):
-        firstForm = self.addForm("MAIN", mainForm, name="Periodic Table")
-        secondForm = self.addForm("INFO", info, name="Information")
+        self.addForm("INFO", info, name="Information")
+        self.addForm("MAIN", mainForm, name="Periodic Table")
+
 
 if __name__ == "__main__":
     npyscreen.wrapper(myTUI().run())
