@@ -1,21 +1,23 @@
 import npyscreen
+from collections import OrderedDict
 
 class elementData(npyscreen.SimpleGrid):
     
     
     # Meltpoints in K
-    elements = {'H': {'name': 'Hydrogen', 'atomicNumber': 1, 'group': 1, 'period': 1, 'block': 's', 'category':'Reactive Nonmetal', 'atomicMass': 1.00794, 'electronegativity': 2.20, 'electronConfig': '1s¹', 'STPphase': 'Gas', 'meltPoint': 13.99, 'boilPoint': 20.271, 'STPdensity': 0.08988, 'triplePoint': 13.8033, 'critPoint': 32.938, 'heatCap': 28.836, 'oxStates': '-1, +1', 'covRadius': '31±5', 'vdwRadius': 120, },
- 
-                'He': {'name': 'Helium', 'atomicNumber': 2, 'group': 18, 'period': 1, 'block': 's', 'category':'Noble Gas', 'atomicMass': 4.002602, 'electronegativity': 'No Data', 'electronConfig': '1s²', 'STPphase': 'Gas', 'meltPoint': 0.95, 'boilPoint': 4.222, 'STPdensity': 0.1786, 'triplePoint': 2.177, 'critPoint': 5.1953, 'heatCap': 20.78, 'oxStates': '0', 'covRadius': '28', 'vdwRadius': 140, },
+    elements = {'H': OrderedDict([('Name:', 'Hydrogen'), ('Atomic Number:', 1), ('Group:', 1), ('Period:', 1), ('Block:', 's'), ('Category', 'Reactive Nonmetal'), ('Atomic Mass (u):', 1.00794), ('Electronegativity:', 2.20), ('Electron Configuration:', '1s¹'), ('Phase at STP:', 'Gas'), ('Melting Point (K):', 13.99), ('Boiling Point (K):', 20.271), ('Density at STP (g/L):', 0.08988), ('Triple Point (K):', 13.8033), ('Critical Point (K):', 32.938), ('Heat Capacity (J/(mol·K)):', 28.836), ('Oxidation States:', '-1, +1'), ('Covalent Radius (pm):', '31±5'), ('Van Der Waals Radius (pm):', 120), ('Crystal Structure:', 'Hexagonal'), ('Speed of Sound (gas, 27˚C, m/s)', 1310), ('Thermal Conductivity (W/(m·K))', 0.1805), ('Magnetic Ordering:', 'Diamagnetic')]),
+    
+            'He': OrderedDict([('Name:', 'Helium'), ('Atomic Number:', 2), ('Group:', 18), ('Period:', 1), ('Block:', 's'), ('Category', 'Noble Gas'), ('Atomic Mass (u):', 4.002602), ('Electronegativity:', 'No Data'), ('Electron Configuration:', '1s²'), ('Phase at STP:', 'Gas'), ('Melting Point (K):', 0.95), ('Boiling Point (K):', 4.222), ('Density at STP (g/L):', 0.1786), (' → at Melting Point (g/cm³):', 0.145), ('Triple Point (K):', 2.117), ('Critical Point (K):', 5.1953), ('Heat Capacity (J/(mol·K)):', 20.78), ('Oxidation States:', '0'), ('Covalent Radius (pm):', '28'), ('Van Der Waals Radius (pm):', 140), ('Crystal Structure:', 'Hexagonal Close-Packed'), ('Thermal Conductivity (W/(m·K))', 0.1513), ('Magnetic Ordering:', 'Diamagnetic')]),
 
-                'Li': {'name': 'Lithium', 'atomicNumber': 3, 'group': 1, 'period': 2, 'block': 's', 'category':'Alkali Metal', 'atomicMass': 6.94, 'electronegativity': 0.98, 'electronConfig': '[He]2s¹', 'STPphase': 'Solid', 'meltPoint': 453.65, 'boilPoint': 1603, 'STPdensity': '0.534 g/cm³', 'triplePoint': 'None', 'critPoint': 3220, 'heatCap': 24.860, 'oxStates': '+1', 'covRadius': '128±7', 'vdwRadius': 182, },
+
+            'Li': OrderedDict([('Name:', 'Lithium'), ('Atomic Number:', 3), ('Group:', 1), ('Period:', 2), ('Block:', 's'), ('Category', 'Alkali Metal'), ('Atomic Mass (u):', 6.94), ('Electronegativity:', 0.98), ('Electron Configuration:', '[He]2s¹'), ('Phase at STP:', 'Solid'), ('Melting Point (K):', 453.65), ('Boiling Point (K):', 1603), ('Density at RT (g/cm³):', 0.534), (' → at Melting Point (g/cm³):', 0.512), ('Critical Point (K):', 3220), ('Heat of Fusion (kJ/mol):', 3.00 ), ('Heat of Vaporization (kJ/mol):', 136), ('Heat Capacity (J/(mol·K)):', 24.860), ('Oxidation States:', '+1'), ('Atomic Radius (pm):', 152), ('Covalent Radius (pm):', '128±7'), ('Van Der Waals Radius (pm):', 182), ('Crystal Structure:', 'Body-Centric Cubic'), ('Thermal Expansion at 25˚C: (µm/(m·K))', 46), ('Thermal Conductivity (W/(m·K))', 84.8), ('Electrical Resistivity at 25˚C (nΩ·m)', 98.2), ('Magnetic Ordering:', 'Paramagnetic')]),
                 
-                'Be': {'name': 'Beryllium', 'atomicNumber': 4, 'group': 2, 'period': 2, 'block': 's', 'category':'Alkaline Earth Metal', 'atomicMass': 9.012, 'electronegativity': 1.57, 'electronConfig': '[He]2s²', 'STPphase': 'Solid', 'meltPoint': 1560, 'boilPoint': 2742, 'STPdensity': '1.85 g/cm³', 'triplePoint': 'None', 'critPoint': 3220, 'heatCap': 28.863, 'oxStates': '-1, +1', 'covRadius': '31±5', 'vdwRadius': 120, }
-
+            
+            'Be': OrderedDict([('Name:', 'Beryllium'), ('Atomic Number:', 4), ('Group:', 2), ('Period:', 2), ('Block:', 's'), ('Category', 'Alkaline Earth Metal'), ('Atomic Mass (u):', 9.012), ('Electronegativity:', 1.57), ('Electron Configuration:', '[He]2s²'), ('Phase at STP:', 'Solid'), ('Melting Point (K):', 1560), ('Boiling Point (K):', 2742), ('Density at RT (g/cm³):', 1.85), (' → at Melting Point (g/cm³):', 1.690), ('Critical Point (K):', 5205), ('Heat of Fusion (kJ/mol):', 12.2 ), ('Heat of Vaporization (kJ/mol):', 292), ('Heat Capacity (J/(mol·K)):', 16.443), ('Oxidation States:', '+2, +1'), ('Atomic Radius (pm):', 112), ('Covalent Radius (pm):', '96±3'), ('Van Der Waals Radius (pm):', 153)]),
+                
 
                 }
 
-    # Takes Element as argument, returns a list of values for grid 
     
 
 class pTable(npyscreen.GridColTitles, npyscreen.ButtonPress):
@@ -72,28 +74,18 @@ class mainForm(npyscreen.ActionForm):
 class info(npyscreen.Form):
     
     def setValues(self, element):
+        
+        # Dictionary of element properties
         properties = elementData.elements[element]
-        values = [['Name:', properties['name']],
-                  [' '],
-                  ['Period:', properties['period']],
-                  ['Group:', properties['group']],
-                  ['Block:', properties['block']],
-                  ['Category:', properties['category']],
-                  ['Atomic Number:', properties['atomicNumber']], 
-                  ['Atomic Mass (Amu):', properties['atomicMass']],
-                  ['Electronegativity:', properties['electronegativity']],
-                  ['Electron Configuration:', properties['electronConfig']], 
-                  ['Phase at STP:', properties['STPphase']], 
-                  ['Density at STP (g/L):', properties['STPdensity']],
-                  ['Melting Point (K):', properties['meltPoint']],
-                  ['Boiling Point (K):', properties['boilPoint']],
-                  ['Triple Point (K):', properties['triplePoint']],
-                  ['Critical Point (K):', properties['critPoint']],
-                  ['Oxidation States:', properties['oxStates']],
-                  ['Heat Capacity (J/(mol·K)):', properties['heatCap']],
-                  ['Covalent Radius (pm):', properties['covRadius']],
-                  ['Van der Wal Radius (pm):', properties['vdwRadius']]
-                  ]
+        
+        # Values to pass to info grid
+        values = []
+        
+        for key in list(properties):
+            datum = []
+            datum.append(key)
+            datum.append(properties[key])
+            values.append(datum)
         return values
 
     # Enables editing and points to next form
@@ -103,14 +95,13 @@ class info(npyscreen.Form):
     
     # Initialize information
     def create(self):
-        self.element = self.add(elementData, editable=False, width=115)
+        self.element = self.add(elementData, editable=False, width=130)
 
 ####################################
 # App and Form initialized and run #
 ####################################
 class myTUI(npyscreen.NPSAppManaged):
     
-    #typedElement = 'Ar'
 
     def onStart(self):
         firstForm = self.addForm("MAIN", mainForm, name="Periodic Table")
