@@ -40,7 +40,7 @@ class mainForm(npyscreen.ActionFormMinimal):
                 values=tableElements,
                 col_titles=periods,
                 relx=2,
-                rely=2,
+                rely=4,
                 width=73,
                 columns=18,
                 editable=False)
@@ -50,49 +50,53 @@ class mainForm(npyscreen.ActionFormMinimal):
                 name="Element Lookup: ",
                 use_two_lines = False,
                 begin_entry_at = 16,
-                rely=self.table.rely + 13) 
+                width = 30,
+                rely=2,
+                relx=2) 
         
         # Search button to activate info form
         self.button = self.add(npyscreen.ButtonPress,
                 name="Search",
                 begin_entry_at=12,
-                rely=self.table.rely+15,
-                relx=2,
+                rely=2,
+                relx=35,
                 when_pressed_function = self.searchButton)
         
         # Adding info panel below table
         self.helpfulInfo = self.add(npyscreen.BoxTitle,
                 _contained_widget=npyscreen.TitleFixedText,
                 title = "Useful Information",
-                rely = self.button.rely+2,
+                rely = 3,
                 values = chemInfo,
-                relx = 2,
+                relx = 77,
                 editable = True,
                 editw = 1,
                 width = 73,
+                height = 37,
                 name = 'Chemistry Database')
         
         self.equationBalancer = self.add(npyscreen.BoxTitle,
                 _contained_widget=npyscreen.TitleFixedText,
                 name="Equation Balancer: Use format below",
                 values=[' ', 'C₇H₁₆ + O₂ → CO₂ + H₂O | C7H16+O2->CO2+H2O'],
-                relx=75,
+                relx=2,
                 rely=19,
-                width = 50,
+                width = 72,
                 height = 9,
                 editable=False)
         
         self.equationBalancerField = self.add(npyscreen.TitleText,
                 name = ':',
-                relx = 77,
+                relx = 3,
                 rely = 23,
                 use_two_lines = False,
                 begin_entry_at = 2,
                 width = 45)
 
         self.equationBalancerOutput = self.add(npyscreen.FixedText,
-                relx = 77,
+                relx = 2,
                 rely = 26,
+                width = 20,
                 value = None)
         
 
@@ -100,9 +104,9 @@ class mainForm(npyscreen.ActionFormMinimal):
                 _contained_widget=npyscreen.TitleFixedText,
                 name="Molar Mass Calculator:",
                 values=[' '],
-                relx=75,
+                relx=2,
                 rely=28,
-                width = 50,
+                width = 72,
                 height = 12,
                 editable=False)
 
