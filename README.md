@@ -2,8 +2,7 @@
 
 ##  Your chemistry homework just got easier!
 
-pTable is a periodic table reference written in Python, which provides a handy way to quickly access information about various elements from your terminal.
-
+pTable is a chemistry reference written in Python, which provides a quick way to perform common chemistry calculations and find useful facts and information.
 
 pTable depends on npyscreen, a curses wrapper for Python. Install it for Python 3 with 
 
