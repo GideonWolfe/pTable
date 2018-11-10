@@ -2,27 +2,8 @@ import sys
 import npyscreen
 import time
 from collections import OrderedDict
-from data import elementStats, chemInfo
+from data import elementStats, chemInfo, tableElements, periods
    
-
-class pTable(npyscreen.GridColTitles, npyscreen.ButtonPress):
-    
-    # Array of numbers used to lable the periods of the table
-    periods = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18']
-
-    # 2D array of cells that represent the elements in the periodic table
-    elements = [['H ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', 'He'], 
-                ['Li', 'Be', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', 'B ', 'C ', 'N ', 'O ', 'F ', 'Ne'], 
-                ['Na', 'Mg', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', 'Al', 'Si', 'P ', 'S ', 'Cl', 'Ar'],
-                ['K ', 'Ca', 'Sc', 'Ti', 'V ', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn', 'Ga', 'Ge', 'As', 'Se', 'Br', 'Kr'],
-                ['Rb', 'Sr', 'Y ', 'Zr', 'Nb', 'Mo', 'Tc', 'Ru', 'Rh', 'Pd', 'Ag', 'Cd', 'In', 'Sn', 'Sb', 'Te', 'I ', 'Xe'], 
-                ['Cs', 'Ba', '↓ ', 'Hf', 'Ta', 'W ', 'Re', 'Os', 'Ir', 'Pt', 'Au', 'Hg', 'Tl', 'Pb', 'Bi', 'Po', 'At', 'Rn'], 
-                ['Fr', 'Ra', '↓ ', 'Rf', 'Db', 'Sg', 'Bh', 'Hs', 'Mt', 'Ds', 'Rg', 'Cn', 'Nh', 'Fl', 'Mc', 'Lv', 'Ts', 'Og'],
-                ['  ', '  ', '↓ ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  '],
-                ['  ', '  ', '→|', 'La', 'Ce', 'Pr', 'Nd', 'Pm', 'Sm', 'Eu', 'Gd', 'Tb', 'Dy', 'Ho', 'Er', 'Tm', 'Yb', 'Lu'],
-                ['  ', '  ', '→|', 'Ac', 'Th', 'Pa', 'U ', 'Np', 'Pu', 'Am', 'Cm', 'Bk', 'Cf', 'Es', 'Fm', 'Md', 'No', 'Lr']
-                ]
-        
  
 # Main form with a periodic table and text box
 class mainForm(npyscreen.ActionFormMinimal):
@@ -53,8 +34,9 @@ class mainForm(npyscreen.ActionFormMinimal):
     def create(self):
 
         # Periodic table
-        self.table = self.add(pTable, values=pTable.elements, col_titles=pTable.periods, relx=2, rely=2, width=72, columns=18, editable=False)
-        
+        #self.table = self.add(pTable, values=pTable.elements, col_titles=pTable.periods, relx=2, rely=2, width=72, columns=18, editable=False)
+        self.table = self.add(npyscreen.GridColTitles, values=tableElements, col_titles=periods, relx=2, rely=2, width=72, columns=18, editable=False)
+
         # Search bar to enter desired element
         self.element = self.add(npyscreen.TitleText, name="Element: ", begin_entry_at=12, rely=self.table.rely+13) 
         
