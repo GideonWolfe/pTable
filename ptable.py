@@ -3,9 +3,14 @@ import npyscreen
 import time
 from collections import OrderedDict
 from data import elementStats, chemInfo, tableElements, periods
-from equationBalancer import balance   
+from solver import balance, balance2 
 
-# Main form with a periodic table and text box
+
+#############################
+##                         ##  
+##       MAIN FORM         ##
+##                         ##
+#############################
 class mainForm(npyscreen.ActionFormMinimal):
 
     # Enables editing and points to next form
@@ -16,7 +21,7 @@ class mainForm(npyscreen.ActionFormMinimal):
 
     # Function called when user presses search
     def searchButton(self):
-        # set variable in parent app to user input
+        # set variable to user input
         self.typedElement = self.element.value
 
         # Object representing Info form
@@ -34,6 +39,10 @@ class mainForm(npyscreen.ActionFormMinimal):
 
     # Initialize table and text box
     def create(self):
+
+        ##################
+        # Periodic Table #
+        ##################
 
         # Periodic table
         self.table = self.add(npyscreen.GridColTitles,
@@ -62,8 +71,14 @@ class mainForm(npyscreen.ActionFormMinimal):
                 relx=35,
                 when_pressed_function = self.searchButton)
         
-        # Adding info panel below table
-        self.helpfulInfo = self.add(npyscreen.BoxTitle,
+        
+        
+        
+        ######################
+        # Chemistry Database #
+        ######################
+        
+        self.database = self.add(npyscreen.BoxTitle,
                 _contained_widget=npyscreen.TitleFixedText,
                 title = "Useful Information",
                 rely = 3,
@@ -75,16 +90,23 @@ class mainForm(npyscreen.ActionFormMinimal):
                 height = 37,
                 name = 'Chemistry Database')
         
+        
+        #####################
+        # Equation Balancer #
+        #####################
+       
+        # Box widget
         self.equationBalancer = self.add(npyscreen.BoxTitle,
                 _contained_widget=npyscreen.TitleFixedText,
                 name="Equation Balancer: Use format below",
-                values=[' ', 'C₇H₁₆ + O₂ → CO₂ + H₂O | C7H16+O2->CO2+H2O'],
+                values=[' ', 'C₇H₁₆ + O₂ → CO₂ + H₂O | {C}7{H}16 + {O}2 = {C}1{O}2 + {H}2{O}1'],
                 relx=2,
                 rely=19,
                 width = 72,
                 height = 9,
                 editable=False)
         
+        # Equation entry field
         self.equationBalancerField = self.add(npyscreen.TitleText,
                 name = ':',
                 relx = 3,
@@ -93,16 +115,34 @@ class mainForm(npyscreen.ActionFormMinimal):
                 begin_entry_at = 2,
                 width = 45)
 
-        self.equationBalancerOutput = self.add(npyscreen.FixedText,
-                relx = 2,
-                rely = 26,
-                width = 20,
-                value = None)
+        # Solver output
+        mainForm.equationBalancerOutput = self.add(npyscreen.FixedText,
+                value = None,
+                editable = True,
+                relx = 5,
+                rely = 25,
+                width = 20)       
+        
+        # Solve button
+        mainForm.equationBalancerButton = self.add(testButton,
+                name = 'Solve',
+                relx = 50,
+                rely = 23,
+                use_two_lines=False,
+                editw=0,
+                )
         
 
-        self.molarMassCalculator = self.add(npyscreen.BoxTitle,
+        
+        
+        #####################
+        # Compound Analyzer #
+        #####################
+        
+        # Box Widget
+        self.compoundAnalyzer = self.add(npyscreen.BoxTitle,
                 _contained_widget=npyscreen.TitleFixedText,
-                name="Molar Mass Calculator:",
+                name="Compound Analyzer:",
                 values=[' '],
                 relx=2,
                 rely=28,
@@ -111,17 +151,20 @@ class mainForm(npyscreen.ActionFormMinimal):
                 editable=False)
 
 
-        #TODO add solver button
-        #self.equationBalancerButton = self.add(solveButton,
-        #        relx=76,
-        #        rely=25,
-        #        width = 5, 
-        #        name='Solve',)
 
 
     # Exit program form when OK is pressed
     def on_ok(self):
         sys.exit()        
+
+
+
+
+#############################
+##                         ##  
+##       INFO FORM         ##
+##                         ##
+#############################
 
 class info(npyscreen.Form):
    
@@ -154,17 +197,25 @@ class info(npyscreen.Form):
     
     # Initialize information
     def create(self):
-        self.element = self.add(npyscreen.SimpleGrid, editable=False, width=160, editw=0)
+        self.element = self.add(npyscreen.SimpleGrid, editable=False, width=235, editw=0)
+
+class testButton(npyscreen.ButtonPress):
+    def whenPressed(self):
+
+        self.editing = False
+        mainForm.equationBalancerOutput.value = '- Test Output -'
+        mainForm.equationBalancerOutput.edit()
+
+
 
 ####################################
 # App and Form initialized and run #
 ####################################
 class myTUI(npyscreen.NPSAppManaged):
     
-
     def onStart(self):
         self.addForm("INFO", info, name="Information")
-        self.addForm("MAIN", mainForm, name="Periodic Table")
+        self.addForm("MAIN", mainForm, name="pTable")
 
 
 if __name__ == "__main__":
