@@ -19,8 +19,7 @@ tableElements =[['H ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  
 
 
 chemInfo= ['',
-          'To escape this widget, click another widget',
-          'Press l to search, and n to cycle results. Search is case sensitive',
+          'Press l to locate, and n to cycle results. Locate is case sensitive',
           'Press G to jup to bottom, press g to jump to top',
           '',
           '########################',

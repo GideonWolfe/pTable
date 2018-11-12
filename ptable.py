@@ -16,7 +16,6 @@ class mainForm(npyscreen.ActionFormMinimal):
     # Enables editing and points to next form
     def activate(self):
         self.edit()
-        self.parentApp.setNextForm("INFO")
     
 
     # Function called when user presses search
@@ -81,15 +80,20 @@ class mainForm(npyscreen.ActionFormMinimal):
         self.database = self.add(npyscreen.BoxTitle,
                 _contained_widget=npyscreen.TitleFixedText,
                 title = "Useful Information",
-                rely = 3,
+                rely = 19,
                 values = chemInfo,
                 relx = 77,
                 editable = True,
                 editw = 1,
                 width = 73,
-                height = 37,
+                height = 21,
                 name = 'Chemistry Database')
-        
+       
+        self.testButton = self.add(databaseButton,
+                relx = self.database.relx + 55,
+                rely = self.database.rely + 1,
+                name = "Expand"
+                )
         
         #####################
         # Equation Balancer #
@@ -109,8 +113,8 @@ class mainForm(npyscreen.ActionFormMinimal):
         # Equation entry field
         mainForm.equationBalancerField = self.add(npyscreen.TitleText,
                 name = ':',
-                relx = 3,
-                rely = 23,
+                relx = self.equationBalancer.relx+1,
+                rely = self.equationBalancer.rely+3,
                 use_two_lines = False,
                 begin_entry_at = 2,
                 width = 45)
@@ -153,8 +157,8 @@ class mainForm(npyscreen.ActionFormMinimal):
         # Entry Field
         mainForm.compoundAnalyzerField = self.add(npyscreen.TitleText,
                 name = ':',
-                relx = 3,
-                rely = 30,
+                relx = self.compoundAnalyzer.relx+1,
+                rely = self.compoundAnalyzer.rely+2,
                 use_two_lines = False,
                 begin_entry_at = 2,
                 width = 45)
@@ -163,15 +167,15 @@ class mainForm(npyscreen.ActionFormMinimal):
         mainForm.compoundAnalyzerOutput = self.add(npyscreen.FixedText,
                 value = None,
                 editable = True,
-                relx = 5,
-                rely = 32,
-                width = 40)       
+                relx = self.compoundAnalyzer.relx+3,
+                rely = self.compoundAnalyzer.rely+5,
+                width = 60)       
         
         # Analyze button
         mainForm.compoundAnalyzerButton = self.add(analyzeButton,
                 name = 'Analyze',
-                relx = 50,
-                rely = 30,
+                relx = self.compoundAnalyzer.relx+48,
+                rely = self.compoundAnalyzer.rely+2,
                 use_two_lines=False,
                 editw=0,
                 )
@@ -224,11 +228,22 @@ class info(npyscreen.Form):
     def create(self):
         self.element = self.add(npyscreen.SimpleGrid, editable=False, width=235, editw=0)
 
+
+####################
+#                  #
+#  Button Classes  #
+#                  # 
+####################
 class solveButton(npyscreen.ButtonPress):
     def whenPressed(self):
         self.editing = False
         mainForm.equationBalancerOutput.value = solveEq(mainForm.equationBalancerField.value)
         mainForm.equationBalancerOutput.edit()
+
+class databaseButton(npyscreen.ButtonPress):
+    def whenPressed(self):
+        self.editing = False
+        self.parent.parentApp.switchForm("DATABASE")
 
 class analyzeButton(npyscreen.ButtonPress):
     def whenPressed(self):
@@ -236,6 +251,31 @@ class analyzeButton(npyscreen.ButtonPress):
         mainForm.compoundAnalyzerOutput.value = analyze(mainForm.compoundAnalyzerField.value)
         mainForm.compoundAnalyzerOutput.edit()
 
+
+###################
+#                 #
+#  Database Form  #
+#                 #
+###################
+class database(npyscreen.Form):
+    
+    # Enables editing and points to next form
+    def activate(self):
+        self.edit()
+        self.parentApp.setNextForm("MAIN")
+    
+    # Initialize information
+    def create(self):
+        self.add(npyscreen.BoxTitle,
+                _contained_widget=npyscreen.TitleFixedText,
+                title = "Chemistry Database",
+                rely = 1,
+                relx = 1,
+                height = 40,
+                width = 167,
+                values = chemInfo,
+                editable = True,
+                )
 
 
 ####################################
@@ -246,7 +286,7 @@ class myTUI(npyscreen.NPSAppManaged):
     def onStart(self):
         self.addForm("INFO", info, name="Information")
         self.addForm("MAIN", mainForm, name="pTable")
-
+        self.addForm("DATABASE", database, name="Chemistry Database")
 
 if __name__ == "__main__":
     npyscreen.wrapper(myTUI().run())
