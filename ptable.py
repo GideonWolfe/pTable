@@ -3,7 +3,7 @@ import npyscreen
 import time
 from collections import OrderedDict
 from data import elementStats, chemInfo, tableElements, periods
-from solver import balance, balance2 
+from solve import solveEq
 
 
 #############################
@@ -98,8 +98,8 @@ class mainForm(npyscreen.ActionFormMinimal):
         # Box widget
         self.equationBalancer = self.add(npyscreen.BoxTitle,
                 _contained_widget=npyscreen.TitleFixedText,
-                name="Equation Balancer: Use format below",
-                values=[' ', 'C₇H₁₆ + O₂ → CO₂ + H₂O | {C}7{H}16 + {O}2 = {C}1{O}2 + {H}2{O}1'],
+                name="Equation Balancer: Use Format Below",
+                values=[' ', '  N₂ + H₂ → NH₃ | N2 + H2 = NH3'],
                 relx=2,
                 rely=19,
                 width = 72,
@@ -107,7 +107,7 @@ class mainForm(npyscreen.ActionFormMinimal):
                 editable=False)
         
         # Equation entry field
-        self.equationBalancerField = self.add(npyscreen.TitleText,
+        mainForm.equationBalancerField = self.add(npyscreen.TitleText,
                 name = ':',
                 relx = 3,
                 rely = 23,
@@ -201,9 +201,8 @@ class info(npyscreen.Form):
 
 class testButton(npyscreen.ButtonPress):
     def whenPressed(self):
-
         self.editing = False
-        mainForm.equationBalancerOutput.value = '- Test Output -'
+        mainForm.equationBalancerOutput.value = solveEq(mainForm.equationBalancerField.value)
         mainForm.equationBalancerOutput.edit()
 
 
