@@ -1,10 +1,9 @@
 from chempy import balance_stoichiometry
-import ast
-from pprint import pprint
-from chempy import Equilibrium
-from sympy import symbols
+from chempy import Substance
 
 
+test = Substance.from_formula('O2')
+print(test.unicode_name)
 
 def solveEq(userString):
     
@@ -22,10 +21,12 @@ def solveEq(userString):
             outputString += str(reac[i])
 
             if(count == len(dict(reac))):
-                outputString += str(i)
+                addedStr = str(Substance.from_formula(i).unicode_name)
+                outputString += addedStr
                 continue
             else:
-                outputString += str(i + ' + ')
+                addedStr = str(Substance.from_formula(i).unicode_name)
+                outputString += addedStr + ' + '
             
 
         outputString += ' → '
@@ -36,11 +37,18 @@ def solveEq(userString):
             outputString += str(prod[i])
 
             if(count == len(dict(prod))):
-                outputString += str(i)
+
+                addedStr = str(Substance.from_formula(i).unicode_name)
+                outputString += addedStr
                 continue
+             
             else:
-                outputString += str(i + ' + ')
+                addedStr = str(Substance.from_formula(i).unicode_name)
+                outputString += addedStr + ' + '
+
+        
         return outputString
+    
     except:
-        return('Error, check format')
+        return('Error, Computation Failed')
 
