@@ -4,8 +4,18 @@ from chempy import balance_stoichiometry
 from chempy import *
 import collections
 import data
+from chempy.units import default_units as u
+
 
 def analyze(equation):
+    
+
+    # Parsing substance from formula
+    try:
+        substance = Substance.from_formula(equation)
+    except:
+        return [["Error: Check Formatting"]]
+
     try:
         # Gets elemental symbol for given atomic number
         def getSymbol(atomicNum):
@@ -22,12 +32,19 @@ def analyze(equation):
         # Initializing empty list
         inputList = []
         
-        # Parsing substance from formula
-        substance = Substance.from_formula(equation)
         
         # Adding tuples to inputList
-        for element in substance.composition.keys():
-            inputList.append((getSymbol(element), substance.composition[element]))
+
+        # No charge stat, ie element
+        if 0 not in substance.composition.keys():
+            for element in substance.composition.keys():
+                inputList.append((getSymbol(element), substance.composition[element]))
+        else:
+            for element in substance.composition.keys():
+                if element != 0:
+                    inputList.append((getSymbol(element), substance.composition[element]))
+                
+
 
         # Casting to OrderedDict
         inputList = collections.OrderedDict(inputList)
@@ -36,16 +53,21 @@ def analyze(equation):
         massPercents = mass_fractions(inputList)
         
         # Result
-        outputStr = str()
+        mpStr = str()
         
         # Build result string
         for element in massPercents.keys():
             valueDecimal = round(massPercents[element], 3)
             valuePercent = round(valueDecimal*100, 3)
-            outputStr += element+': '+str(valueDecimal)+' ('+str(valuePercent)+'%) '
+            mpStr += element+': ('+str(valuePercent)+'%) '
+        
+        
+        outputList = [['Molar Mass: ' + str(substance.molar_mass(u))],
+                ['Mass Percents: ' + str(mpStr)],
+                ['Charge: ' + str(substance.charge)]]
 
-        return outputStr
+        return outputList
     
     except:
-        return "Error: Check Formatting"
+        return [["Error: Something went wrong"]]
 

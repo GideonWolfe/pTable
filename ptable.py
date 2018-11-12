@@ -47,7 +47,7 @@ class mainForm(npyscreen.ActionFormMinimal):
         self.table = self.add(npyscreen.GridColTitles,
                 values=tableElements,
                 col_titles=periods,
-                relx=2,
+                relx=3,
                 rely=4,
                 width=73,
                 columns=18,
@@ -60,14 +60,14 @@ class mainForm(npyscreen.ActionFormMinimal):
                 begin_entry_at = 16,
                 width = 30,
                 rely=2,
-                relx=2) 
+                relx=3) 
         
         # Search button to activate info form
         self.button = self.add(npyscreen.ButtonPress,
                 name="Search",
                 begin_entry_at=12,
                 rely=2,
-                relx=35,
+                relx=36,
                 when_pressed_function = self.searchButton)
         
         
@@ -102,7 +102,7 @@ class mainForm(npyscreen.ActionFormMinimal):
         # Box widget
         self.equationBalancer = self.add(npyscreen.BoxTitle,
                 _contained_widget=npyscreen.TitleFixedText,
-                name="Equation Balancer: Use Format Below",
+                name="Equation Balancer: Use Format Below. Output Scrolls",
                 values=[' ', 'CaCl₂ + AgNO₃ → Ca(NO₃)₂ + AgCl || CaCl2 + AgNO3 = Ca(NO3)2 + AgCl'],
                 relx=2,
                 rely=19,
@@ -114,7 +114,7 @@ class mainForm(npyscreen.ActionFormMinimal):
         mainForm.equationBalancerField = self.add(npyscreen.TitleText,
                 name = ':',
                 relx = self.equationBalancer.relx+1,
-                rely = self.equationBalancer.rely+3,
+                rely = self.equationBalancer.rely+4,
                 use_two_lines = False,
                 begin_entry_at = 2,
                 width = 45)
@@ -163,13 +163,16 @@ class mainForm(npyscreen.ActionFormMinimal):
                 begin_entry_at = 2,
                 width = 45)
 
-        # Solver output
-        mainForm.compoundAnalyzerOutput = self.add(npyscreen.FixedText,
+        # Analyzer output
+        mainForm.compoundAnalyzerOutput = self.add(npyscreen.SimpleGrid,
                 value = None,
                 editable = True,
+                use_two_lines=True,
+                column_width = 44,
                 relx = self.compoundAnalyzer.relx+3,
                 rely = self.compoundAnalyzer.rely+5,
-                width = 60)       
+                height = 3,
+                width = 65)       
         
         # Analyze button
         mainForm.compoundAnalyzerButton = self.add(analyzeButton,
@@ -248,7 +251,7 @@ class databaseButton(npyscreen.ButtonPress):
 class analyzeButton(npyscreen.ButtonPress):
     def whenPressed(self):
         self.editing = False
-        mainForm.compoundAnalyzerOutput.value = analyze(mainForm.compoundAnalyzerField.value)
+        mainForm.compoundAnalyzerOutput.values = analyze(mainForm.compoundAnalyzerField.value)
         mainForm.compoundAnalyzerOutput.edit()
 
 
