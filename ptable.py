@@ -4,7 +4,7 @@ import time
 from collections import OrderedDict
 from data import elementStats, chemInfo, tableElements, periods
 from solve import solveEq
-
+from substance import analyze 
 
 #############################
 ##                         ##  
@@ -99,7 +99,7 @@ class mainForm(npyscreen.ActionFormMinimal):
         self.equationBalancer = self.add(npyscreen.BoxTitle,
                 _contained_widget=npyscreen.TitleFixedText,
                 name="Equation Balancer: Use Format Below",
-                values=[' ', '  N₂ + H₂ → NH₃ | N2 + H2 = NH3'],
+                values=[' ', 'CaCl₂ + AgNO₃ → Ca(NO₃)₂ + AgCl || CaCl2 + AgNO3 = Ca(NO3)2 + AgCl'],
                 relx=2,
                 rely=19,
                 width = 72,
@@ -121,10 +121,10 @@ class mainForm(npyscreen.ActionFormMinimal):
                 editable = True,
                 relx = 5,
                 rely = 25,
-                width = 20)       
+                width = 40)       
         
         # Solve button
-        mainForm.equationBalancerButton = self.add(testButton,
+        mainForm.equationBalancerButton = self.add(solveButton,
                 name = 'Solve',
                 relx = 50,
                 rely = 23,
@@ -142,14 +142,39 @@ class mainForm(npyscreen.ActionFormMinimal):
         # Box Widget
         self.compoundAnalyzer = self.add(npyscreen.BoxTitle,
                 _contained_widget=npyscreen.TitleFixedText,
-                name="Compound Analyzer:",
+                name="Compound Analyzer: Use Above Format",
                 values=[' '],
                 relx=2,
                 rely=28,
                 width = 72,
                 height = 12,
                 editable=False)
+        
+        # Entry Field
+        mainForm.compoundAnalyzerField = self.add(npyscreen.TitleText,
+                name = ':',
+                relx = 3,
+                rely = 30,
+                use_two_lines = False,
+                begin_entry_at = 2,
+                width = 45)
 
+        # Solver output
+        mainForm.compoundAnalyzerOutput = self.add(npyscreen.FixedText,
+                value = None,
+                editable = True,
+                relx = 5,
+                rely = 32,
+                width = 40)       
+        
+        # Analyze button
+        mainForm.compoundAnalyzerButton = self.add(analyzeButton,
+                name = 'Analyze',
+                relx = 50,
+                rely = 30,
+                use_two_lines=False,
+                editw=0,
+                )
 
 
 
@@ -199,11 +224,17 @@ class info(npyscreen.Form):
     def create(self):
         self.element = self.add(npyscreen.SimpleGrid, editable=False, width=235, editw=0)
 
-class testButton(npyscreen.ButtonPress):
+class solveButton(npyscreen.ButtonPress):
     def whenPressed(self):
         self.editing = False
         mainForm.equationBalancerOutput.value = solveEq(mainForm.equationBalancerField.value)
         mainForm.equationBalancerOutput.edit()
+
+class analyzeButton(npyscreen.ButtonPress):
+    def whenPressed(self):
+        self.editing = False
+        mainForm.compoundAnalyzerOutput.value = analyze(mainForm.compoundAnalyzerField.value)
+        mainForm.compoundAnalyzerOutput.edit()
 
 
 
