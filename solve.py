@@ -1,9 +1,7 @@
 from chempy import balance_stoichiometry
 from chempy import Substance
+from chempy import Reaction
 
-
-test = Substance.from_formula('O2')
-print(test.unicode_name)
 
 def solveEq(userString):
     
@@ -50,5 +48,5 @@ def solveEq(userString):
         return outputString
     
     except:
-        return('Error, Computation Failed')
+        return('Error: Unsolveable or Bad Formatting')
 

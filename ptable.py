@@ -70,9 +70,59 @@ class mainForm(npyscreen.ActionFormMinimal):
                 relx=36,
                 when_pressed_function = self.searchButton)
         
+    
+    
+        ######################
+        # Molarity Calcuator #
+        ######################
+                
+        self.molarityCalc = self.add(npyscreen.BoxTitle,
+                _contained_widget = npyscreen.TitleFixedText,
+                relx = self.table.relx+74,
+                rely = 2,
+                editable = False,
+                height = 16,
+                width = 71,
+                name = 'Molarity Calcuator')
         
+        mainForm.soluteMassField = self.add(npyscreen.TitleText,
+                name = 'Mass of Solute (g):',
+                use_two_lines = False,
+                width = 35,
+                relx = self.molarityCalc.relx+2,
+                rely = self.molarityCalc.rely + 2,
+                begin_entry_at = 20)
+
+        mainForm.soluteMolarMassField = self.add(npyscreen.TitleText,
+                name = 'Molar Mass of Solute (g/mol):',
+                use_two_lines = False,
+                width = 40,
+                relx = self.molarityCalc.relx+2,
+                rely = self.molarityCalc.rely + 3,
+                begin_entry_at = 30)
+         
+        mainForm.volumeField = self.add(npyscreen.TitleText,
+                name = 'Volume of Solution (L):',
+                use_two_lines = False,
+                width = 35,
+                relx = self.molarityCalc.relx+2,
+                rely = self.molarityCalc.rely + 4,
+                begin_entry_at = 24)
+
+        self.getConcentrations = self.add(solutionButton,
+                relx = self.molarityCalc.relx+1,
+                rely = self.molarityCalc.rely + 5,
+                name = 'Calculate')
         
-        
+        mainForm.solutionGrid = self.add(npyscreen.SimpleGrid,
+                width = 65,
+                columns = 2,
+                height = 3,
+                column_width = 62,
+                relx = self.molarityCalc.relx + 2,
+                rely = self.molarityCalc.rely + 7)
+
+                
         ######################
         # Chemistry Database #
         ######################
@@ -162,6 +212,7 @@ class mainForm(npyscreen.ActionFormMinimal):
                 use_two_lines = False,
                 begin_entry_at = 2,
                 width = 45)
+        
 
         # Analyzer output
         mainForm.compoundAnalyzerOutput = self.add(npyscreen.SimpleGrid,
@@ -254,6 +305,19 @@ class analyzeButton(npyscreen.ButtonPress):
         mainForm.compoundAnalyzerOutput.values = analyze(mainForm.compoundAnalyzerField.value)
         mainForm.compoundAnalyzerOutput.edit()
 
+class solutionButton(npyscreen.ButtonPress):
+    def whenPressed(self):
+        self.editing = False
+        try:
+            conMolar = round(float(mainForm.soluteMassField.value)/float(mainForm.volumeField.value), 4) 
+            conMass = round(conMolar/float(mainForm.soluteMolarMassField.value), 4)
+            values = [['Molar Concentration (M): '+str(conMolar)], ['Mass Concentration (% w/v): '+str(conMass)]]
+        except:
+            values = [['Error: Try Again.']]
+        
+        mainForm.solutionGrid.values = values
+        mainForm.solutionGrid.edit()
+        
 
 ###################
 #                 #
