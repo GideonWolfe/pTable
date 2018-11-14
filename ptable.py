@@ -115,14 +115,53 @@ class mainForm(npyscreen.ActionFormMinimal):
                 name = 'Calculate')
         
         mainForm.solutionGrid = self.add(npyscreen.SimpleGrid,
+                values = [['']],
                 width = 65,
                 columns = 2,
                 height = 3,
                 column_width = 62,
                 relx = self.molarityCalc.relx + 2,
-                rely = self.molarityCalc.rely + 7)
+                rely = self.molarityCalc.rely + 6)
+        
 
-                
+        mainForm.stockConcentration = self.add(npyscreen.TitleText,
+                name = 'Molarity of Stock (M):',
+                relx = self.molarityCalc.relx + 2,
+                rely = self.molarityCalc.rely + 9,
+                use_two_lines = False,
+                width = 35,
+                begin_entry_at = 23)
+        
+        mainForm.desiredVolume = self.add(npyscreen.TitleText,
+                name = 'Desired Final Volume (L):',
+                relx = self.molarityCalc.relx + 2,
+                rely = self.molarityCalc.rely + 10,
+                use_two_lines = False,
+                width = 35,
+                begin_entry_at = 26)
+        
+        mainForm.desiredConcentration = self.add(npyscreen.TitleText,
+                name = 'Desired Molarity (M):',
+                relx = self.molarityCalc.relx + 2,
+                rely = self.molarityCalc.rely + 11,
+                use_two_lines = False,
+                width = 35,
+                begin_entry_at = 22)
+        
+        self.getReqVolume = self.add(concentrationButton,
+                relx = self.molarityCalc.relx+1,
+                rely = self.molarityCalc.rely + 12,
+                name = 'Calculate')
+
+        mainForm.concentrationGrid = self.add(npyscreen.SimpleGrid,
+                values = [['']],
+                width = 65,
+                columns = 2,
+                height = 1,
+                column_width = 62,
+                relx = self.molarityCalc.relx + 2,
+                rely = self.molarityCalc.rely + 13)
+
         ######################
         # Chemistry Database #
         ######################
@@ -216,7 +255,7 @@ class mainForm(npyscreen.ActionFormMinimal):
 
         # Analyzer output
         mainForm.compoundAnalyzerOutput = self.add(npyscreen.SimpleGrid,
-                value = None,
+                values = [['']],
                 editable = True,
                 use_two_lines=True,
                 column_width = 44,
@@ -323,6 +362,23 @@ class solutionButton(npyscreen.ButtonPress):
         mainForm.solutionGrid.values = values
         mainForm.solutionGrid.edit()
         
+class concentrationButton(npyscreen.ButtonPress):
+    def whenPressed(self):
+        self.editing = False
+
+        try:
+            M1 = float(mainForm.stockConcentration.value)
+            M2 = float(mainForm.desiredConcentration.value)
+            V2 = float(mainForm.desiredVolume.value)
+            if M2 > M1:
+                values = [['Error: Concentration Must Decrease']]
+            else:
+                values = [['Required Volume (L): '+str(round(((V2*M2)/M1), 3))]]
+        except:
+            values = [['Error: Try Again.']]
+
+        mainForm.concentrationGrid.values = values
+        mainForm.concentrationGrid.edit()
 
 ###################
 #                 #
