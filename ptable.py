@@ -309,8 +309,13 @@ class solutionButton(npyscreen.ButtonPress):
     def whenPressed(self):
         self.editing = False
         try:
-            conMolar = round(float(mainForm.soluteMassField.value)/float(mainForm.volumeField.value), 4) 
-            conMass = round(conMolar/float(mainForm.soluteMolarMassField.value), 4)
+            mass = float(mainForm.soluteMassField.value)
+            molarMass = float(mainForm.soluteMolarMassField.value)
+            volume = float(mainForm.volumeField.value)
+            moles = molarMass * mass
+
+            conMolar = round(((mass/volume)/molarMass), 4) 
+            conMass = round(((mass/volume)/10), 4)
             values = [['Molar Concentration (M): '+str(conMolar)], ['Mass Concentration (% w/v): '+str(conMass)]]
         except:
             values = [['Error: Try Again.']]
