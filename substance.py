@@ -63,7 +63,7 @@ def analyze(equation):
         
         
         outputList = [['Molar Mass: ' + str(substance.molar_mass(u))],
-                ['Mass Percents: ' + str(mpStr)],
+                ['Mass %\'s: ' + str(mpStr)],
                 ['Charge: ' + str(substance.charge)]]
 
         return outputList

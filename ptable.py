@@ -47,7 +47,7 @@ class mainForm(npyscreen.ActionFormMinimal):
         self.table = self.add(npyscreen.GridColTitles,
                 values=tableElements,
                 col_titles=periods,
-                relx=3,
+                relx=100,
                 rely=4,
                 width=73,
                 columns=18,
@@ -60,14 +60,14 @@ class mainForm(npyscreen.ActionFormMinimal):
                 begin_entry_at = 16,
                 width = 30,
                 rely=2,
-                relx=3) 
+                relx=self.table.relx) 
         
         # Search button to activate info form
         self.button = self.add(npyscreen.ButtonPress,
                 name="Search",
                 begin_entry_at=12,
                 rely=2,
-                relx=36,
+                relx=self.table.relx+63,
                 when_pressed_function = self.searchButton)
         
     
@@ -78,27 +78,39 @@ class mainForm(npyscreen.ActionFormMinimal):
                 
         self.molarityCalc = self.add(npyscreen.BoxTitle,
                 _contained_widget = npyscreen.TitleFixedText,
-                relx = self.table.relx+74,
-                rely = 2,
+                relx = 1,
+                rely = 17,
                 editable = False,
-                height = 16,
-                width = 71,
-                name = 'Molarity Calcuator')
+                height = 24,
+                width = 43,
+                name = 'Solution Calcuator')
         
+        self.label1 = self.add(npyscreen.TitleText,
+                value = '- Concentration From Solute & Volume -',
+                name = ' ',
+                begin_entry_at = 1,
+                use_two_lines = False,
+                rely = self.molarityCalc.rely + 2,
+                relx = self.molarityCalc.relx + 1,
+                width = 41,
+                height = 1,
+                editable = False
+                )
+
         mainForm.soluteMassField = self.add(npyscreen.TitleText,
                 name = 'Mass of Solute (g):',
                 use_two_lines = False,
-                width = 35,
+                width = 30,
                 relx = self.molarityCalc.relx+2,
-                rely = self.molarityCalc.rely + 2,
+                rely = self.molarityCalc.rely + 3,
                 begin_entry_at = 20)
 
         mainForm.soluteMolarMassField = self.add(npyscreen.TitleText,
                 name = 'Molar Mass of Solute (g/mol):',
                 use_two_lines = False,
-                width = 40,
+                width = 39,
                 relx = self.molarityCalc.relx+2,
-                rely = self.molarityCalc.rely + 3,
+                rely = self.molarityCalc.rely + 4,
                 begin_entry_at = 30)
          
         mainForm.volumeField = self.add(npyscreen.TitleText,
@@ -106,28 +118,39 @@ class mainForm(npyscreen.ActionFormMinimal):
                 use_two_lines = False,
                 width = 35,
                 relx = self.molarityCalc.relx+2,
-                rely = self.molarityCalc.rely + 4,
+                rely = self.molarityCalc.rely + 5,
                 begin_entry_at = 24)
 
         self.getConcentrations = self.add(solutionButton,
                 relx = self.molarityCalc.relx+1,
-                rely = self.molarityCalc.rely + 5,
+                rely = self.molarityCalc.rely + 6,
                 name = 'Calculate')
         
         mainForm.solutionGrid = self.add(npyscreen.SimpleGrid,
                 values = [['']],
-                width = 65,
-                columns = 2,
+                width = 40,
+                columns = 1,
                 height = 3,
-                column_width = 62,
+                column_width = 40,
                 relx = self.molarityCalc.relx + 2,
-                rely = self.molarityCalc.rely + 6)
+                rely = self.molarityCalc.rely + 7)
         
+        self.label2 = self.add(npyscreen.TitleText,
+                value = '- Dilute Solution of Known Molarity -',
+                name = ' ',
+                begin_entry_at = 1,
+                use_two_lines = False,
+                rely = self.molarityCalc.rely + 10,
+                relx = self.molarityCalc.relx + 1,
+                width = 40,
+                height = 1,
+                editable = False
+                )
 
         mainForm.stockConcentration = self.add(npyscreen.TitleText,
                 name = 'Molarity of Stock (M):',
                 relx = self.molarityCalc.relx + 2,
-                rely = self.molarityCalc.rely + 9,
+                rely = self.molarityCalc.rely + 11,
                 use_two_lines = False,
                 width = 35,
                 begin_entry_at = 23)
@@ -135,7 +158,7 @@ class mainForm(npyscreen.ActionFormMinimal):
         mainForm.desiredVolume = self.add(npyscreen.TitleText,
                 name = 'Desired Final Volume (L):',
                 relx = self.molarityCalc.relx + 2,
-                rely = self.molarityCalc.rely + 10,
+                rely = self.molarityCalc.rely + 12,
                 use_two_lines = False,
                 width = 35,
                 begin_entry_at = 26)
@@ -143,24 +166,76 @@ class mainForm(npyscreen.ActionFormMinimal):
         mainForm.desiredConcentration = self.add(npyscreen.TitleText,
                 name = 'Desired Molarity (M):',
                 relx = self.molarityCalc.relx + 2,
-                rely = self.molarityCalc.rely + 11,
+                rely = self.molarityCalc.rely + 13,
                 use_two_lines = False,
                 width = 35,
                 begin_entry_at = 22)
         
         self.getReqVolume = self.add(concentrationButton,
                 relx = self.molarityCalc.relx+1,
-                rely = self.molarityCalc.rely + 12,
+                rely = self.molarityCalc.rely + 14,
                 name = 'Calculate')
 
         mainForm.concentrationGrid = self.add(npyscreen.SimpleGrid,
                 values = [['']],
-                width = 65,
-                columns = 2,
+                width = 40,
+                columns = 1,
                 height = 1,
-                column_width = 62,
+                column_width = 40,
                 relx = self.molarityCalc.relx + 2,
-                rely = self.molarityCalc.rely + 13)
+                rely = self.molarityCalc.rely + 15)
+        
+        self.label3 = self.add(npyscreen.TitleText,
+                value = '- Calc Mass Req. For Molar Solution -',
+                name = ' ',
+                begin_entry_at = 1,
+                use_two_lines = False,
+                rely = self.molarityCalc.rely + 17,
+                relx = self.molarityCalc.relx + 1,
+                width = 40,
+                height = 1,
+                editable = False
+                )
+
+        mainForm.formulaWeight = self.add(npyscreen.TitleText,
+                name = 'Formula Weight (g/mol):',
+                relx = self.molarityCalc.relx + 2,
+                rely = self.molarityCalc.rely + 18,
+                use_two_lines = False,
+                width = 40,
+                begin_entry_at = 23)
+        
+        mainForm.desiredVolume2 = self.add(npyscreen.TitleText,
+                name = 'Desired Final Volume (L):',
+                relx = self.molarityCalc.relx + 2,
+                rely = self.molarityCalc.rely + 19,
+                use_two_lines = False,
+                width = 40,
+                begin_entry_at = 26)
+        
+        mainForm.desiredConcentration2 = self.add(npyscreen.TitleText,
+                name = 'Desired Molarity (M):',
+                relx = self.molarityCalc.relx + 2,
+                rely = self.molarityCalc.rely + 20,
+                use_two_lines = False,
+                width = 40,
+                begin_entry_at = 22)
+        
+        self.getReqMass = self.add(reqMassButton,
+                relx = self.molarityCalc.relx+1,
+                rely = self.molarityCalc.rely + 21,
+                name = 'Calculate')
+
+        mainForm.reqMassGrid = self.add(npyscreen.SimpleGrid,
+                values = [['']],
+                width = 40,
+                columns = 1,
+                height = 1,
+                column_width = 40,
+                relx = self.molarityCalc.relx + 2,
+                rely = self.molarityCalc.rely + 22)
+
+
 
         ######################
         # Chemistry Database #
@@ -169,17 +244,17 @@ class mainForm(npyscreen.ActionFormMinimal):
         self.database = self.add(npyscreen.BoxTitle,
                 _contained_widget=npyscreen.TitleFixedText,
                 title = "Useful Information",
-                rely = 19,
+                rely = 17,
                 values = chemInfo,
-                relx = 77,
+                relx = 44,
                 editable = True,
                 editw = 1,
-                width = 73,
-                height = 21,
+                width = 53,
+                height = 24,
                 name = 'Chemistry Database')
        
         self.testButton = self.add(databaseButton,
-                relx = self.database.relx + 55,
+                relx = self.database.relx + 40,
                 rely = self.database.rely + 1,
                 name = "Expand"
                 )
@@ -191,19 +266,19 @@ class mainForm(npyscreen.ActionFormMinimal):
         # Box widget
         self.equationBalancer = self.add(npyscreen.BoxTitle,
                 _contained_widget=npyscreen.TitleFixedText,
-                name="Equation Balancer: Use Format Below. Output Scrolls",
-                values=[' ', 'CaCl₂ + AgNO₃ → Ca(NO₃)₂ + AgCl || CaCl2 + AgNO3 = Ca(NO3)2 + AgCl'],
-                relx=2,
-                rely=19,
-                width = 72,
-                height = 9,
+                name="Equation Balancer: CaCl₂ + AgNO₃ → Ca(NO₃)₂ + AgCl | CaCl2 + AgNO3 = Ca(NO3)2 + AgCl",
+                values=[' '],
+                relx=1,
+                rely=9,
+                width = 96,
+                height = 8,
                 editable=False)
         
         # Equation entry field
         mainForm.equationBalancerField = self.add(npyscreen.TitleText,
                 name = ':',
                 relx = self.equationBalancer.relx+1,
-                rely = self.equationBalancer.rely+4,
+                rely = self.equationBalancer.rely+2,
                 use_two_lines = False,
                 begin_entry_at = 2,
                 width = 45)
@@ -212,15 +287,16 @@ class mainForm(npyscreen.ActionFormMinimal):
         mainForm.equationBalancerOutput = self.add(npyscreen.FixedText,
                 value = None,
                 editable = True,
-                relx = 5,
-                rely = 25,
+                use_two_lines = False,
+                relx =  3,
+                rely =  14,
                 width = 40)       
         
         # Solve button
         mainForm.equationBalancerButton = self.add(solveButton,
                 name = 'Solve',
-                relx = 50,
-                rely = 23,
+                relx = self.equationBalancer.relx+75,
+                rely = self.equationBalancer.rely+2,
                 use_two_lines=False,
                 editw=0,
                 )
@@ -235,12 +311,12 @@ class mainForm(npyscreen.ActionFormMinimal):
         # Box Widget
         self.compoundAnalyzer = self.add(npyscreen.BoxTitle,
                 _contained_widget=npyscreen.TitleFixedText,
-                name="Compound Analyzer: Use Above Format",
+                name="Compound Analyzer",
                 values=[' '],
-                relx=2,
-                rely=28,
-                width = 72,
-                height = 12,
+                relx=1,
+                rely=1,
+                width = 96,
+                height = 8,
                 editable=False)
         
         # Entry Field
@@ -258,16 +334,16 @@ class mainForm(npyscreen.ActionFormMinimal):
                 values = [['']],
                 editable = True,
                 use_two_lines=True,
-                column_width = 44,
+                column_width = 73,
                 relx = self.compoundAnalyzer.relx+3,
-                rely = self.compoundAnalyzer.rely+5,
+                rely = self.compoundAnalyzer.rely+4,
                 height = 3,
-                width = 65)       
+                width = 73)       
         
         # Analyze button
         mainForm.compoundAnalyzerButton = self.add(analyzeButton,
                 name = 'Analyze',
-                relx = self.compoundAnalyzer.relx+48,
+                relx = self.compoundAnalyzer.relx+75,
                 rely = self.compoundAnalyzer.rely+2,
                 use_two_lines=False,
                 editw=0,
@@ -379,6 +455,23 @@ class concentrationButton(npyscreen.ButtonPress):
 
         mainForm.concentrationGrid.values = values
         mainForm.concentrationGrid.edit()
+
+class reqMassButton(npyscreen.ButtonPress):
+    def whenPressed(self):
+        self.editing = False
+        try:
+            mMass = float(mainForm.formulaWeight.value)
+            finalVol = float(mainForm.desiredVolume2.value)
+            finalCon = float(mainForm.desiredConcentration2.value)
+            finalMass = round((finalCon*finalVol*mMass), 6)
+            values = [['Req. Mass (g): '+str(finalMass)]]
+            mainForm.reqMassGrid.values = values
+        except:
+            values = [['Error: Try Again']]
+            mainForm.reqMassGrid.values = values
+        
+        mainForm.reqMassGrid.edit()
+
 
 ###################
 #                 #
