@@ -259,6 +259,30 @@ class mainForm(npyscreen.ActionFormMinimal):
                 name = "Expand"
                 )
         
+        ##############
+        # Notes Area # NEED TO ADD CONTENT
+        ##############
+        self.notes = self.add(npyscreen.BoxTitle,
+                _contained_widget=npyscreen.TitleText,
+                title = "Notes",
+                rely = self.database.rely,
+                value = '',
+                relx = self.database.relx+53,
+                values = [""],
+                editable = True,
+                editw = 1,
+                width = 70,
+                height = 24,
+                name = 'Notes')
+
+        self.notesField = self.add(npyscreen.MultiLineEdit,
+                name = ':',
+                relx = self.notes.relx+2,
+                rely = self.notes.rely+2,
+                use_two_lines = True,
+                begin_entry_at = 2,
+                width = 43)
+
         #####################
         # Equation Balancer #
         #####################
