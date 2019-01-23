@@ -247,7 +247,7 @@ class mainForm(npyscreen.ActionFormMinimal):
                 rely = 17,
                 values = chemInfo,
                 relx = 44,
-                editable = True,
+                editable = False,
                 editw = 1,
                 width = 53,
                 height = 24,
@@ -260,7 +260,7 @@ class mainForm(npyscreen.ActionFormMinimal):
                 )
         
         ##############
-        # Notes Area # NEED TO ADD CONTENT
+        # Notes Area # 
         ##############
         self.notes = self.add(npyscreen.BoxTitle,
                 _contained_widget=npyscreen.TitleText,
@@ -268,8 +268,8 @@ class mainForm(npyscreen.ActionFormMinimal):
                 rely = self.database.rely,
                 value = '',
                 relx = self.database.relx+53,
-                values = [""],
-                editable = True,
+                values =  ["", "Scratch sheet for notes, not saved on exit"],
+                editable = False,
                 editw = 1,
                 width = 70,
                 height = 24,
