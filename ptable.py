@@ -247,7 +247,7 @@ class mainForm(npyscreen.ActionFormMinimal):
                 rely = 17,
                 values = chemInfo,
                 relx = 44,
-                editable = False,
+                editable = True,
                 editw = 1,
                 width = 53,
                 height = 24,
@@ -269,7 +269,7 @@ class mainForm(npyscreen.ActionFormMinimal):
                 value = '',
                 relx = self.database.relx+53,
                 values =  ["", "Scratch sheet for notes, not saved on exit"],
-                editable = False,
+                editable = True,
                 editw = 1,
                 width = 70,
                 height = 24,
@@ -520,6 +520,7 @@ class database(npyscreen.Form):
                 width = 167,
                 values = chemInfo,
                 editable = True,
+                editw = True
                 )
 
 
