@@ -14,6 +14,19 @@ Install them for Python 3 like so:
 
 `sudo pip3 install npyscreen`
 
+### Usage:
+
+to run pTable, simply navigate to the pTable directory and run ptable.py. 
+
+For quick calculations without the GUI, you can use these console commands.
+
+Usage: ptable [-options]
+
+-help:   Show this message
+-compound:  Analyze a compound
+-element: Analyze an element
+-equation: Balance an equation (in quotes)    
+
 This program is a personal project, and I am only a chemistry student not an expert. Please feel free to suggest corrections and new features!
 
 
