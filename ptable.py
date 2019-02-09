@@ -535,5 +535,35 @@ class myTUI(npyscreen.NPSAppManaged):
         self.addForm("DATABASE", database, name="Chemistry Database")
 
 if __name__ == "__main__":
-    npyscreen.wrapper(myTUI().run())
+    
+    if len(sys.argv) == 1: 
+        npyscreen.wrapper(myTUI().run())
+
+    elif len(sys.argv) > 3:
+        print("One argument at a time")
+        sys.exit()
+    
+    elif sys.argv[1] == "-compound":
+        print(analyze(sys.argv[2]))
+        sys.exit()
+    
+    elif sys.argv[1] == "-equation":
+        print(chemInfo[sys.argv[2]])
+        sys.exit()
+    
+    elif sys.argv[1] == "-element":
+        from data import elementStats
+        data = elementStats[sys.argv[2]]
+        for i in data:
+            print(i, data[i])
+        sys.exit()
+
+    elif sys.argv[1] == "-help":
+        print("pTable Help:")
+        print("ptable [-options]")
+        print("-help:   Show this message")
+        print("-compound:  Analyze a compound")
+        print("-element: Analyze an element")
+        print("-equation: Balance an equation (in quotes)")    
+        sys.exit()
 
