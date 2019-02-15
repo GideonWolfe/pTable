@@ -2,7 +2,9 @@ import sys
 import npyscreen
 import time
 from collections import OrderedDict
-from data import elementStats, chemInfo, tableElements, periods
+from data import chemInfo, tableElements, periods
+import elements
+from elements import elementStats
 from solve import solveEq
 from substance import analyze 
 
@@ -393,13 +395,12 @@ class info(npyscreen.Form):
     # Generate list of properties for input element
     def setValues(self, element):
         
-        # Check to see if user input is valid
-        if element not in elementStats.keys():
-            return False
-        
         # Dictionary of element properties
-        properties = elementStats[element]
-        
+        try:
+            properties = elementStats(element)
+        except:
+            return False
+            
         # Values to pass to info grid
         values = []
         
@@ -552,8 +553,8 @@ if __name__ == "__main__":
         sys.exit()
     
     elif sys.argv[1] == "-element":
-        from data import elementStats
-        data = elementStats[sys.argv[2]]
+        from elements import elementStats
+        data = elementStats(sys.argv[2])
         for i in data:
             print(i, data[i])
         sys.exit()
