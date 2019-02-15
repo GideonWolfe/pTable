@@ -1,7 +1,7 @@
 # pTable
 
 ##  Your chemistry homework just got easier!
-
+![alt text](https://i.imgur.com/7ogdCFO.png)
 pTable is a chemistry reference written in Python, which provides a quick way to perform common chemistry calculations and find useful facts and information.
 
 ### Dependencies:
