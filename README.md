@@ -34,4 +34,6 @@ For quick calculations without the GUI, you can use these console commands.
 
 This program is a personal project, and I am only a chemistry student not an expert. Please feel free to suggest corrections and new features!
 
-
+### Known Issues:
+* Fixed screen size will break on different screens. Needs to be dynamically allocated.
+* Notepad is glitchy as heck. Will add persistance
