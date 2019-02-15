@@ -5,7 +5,7 @@ from chempy import *
 import collections
 import data
 from chempy.units import default_units as u
-
+from mendeleev import element as e
 
 def analyze(equation):
     
@@ -19,14 +19,9 @@ def analyze(equation):
     try:
         # Gets elemental symbol for given atomic number
         def getSymbol(atomicNum):
-            symbol = '' 
-            for element in data.elementStats.keys():
-                elementInfo = data.elementStats[element]
-                if elementInfo['Atomic Number:'] == atomicNum:
-                    symbol = element
-                else:
-                    continue
-            return symbol
+            intElement = int(atomicNum)
+            myElement = e(intElement)
+            return(str(myElement.symbol))
 
         
         # Initializing empty list
@@ -67,7 +62,5 @@ def analyze(equation):
                 ['Charge: ' + str(substance.charge)]]
 
         return outputList
-    
     except:
         return [["Error: Something went wrong"]]
-
