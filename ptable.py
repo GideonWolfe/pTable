@@ -292,7 +292,7 @@ class mainForm(npyscreen.ActionFormMinimal):
         # Box widget
         self.equationBalancer = self.add(npyscreen.BoxTitle,
                 _contained_widget=npyscreen.TitleFixedText,
-                name="Equation Balancer: CaCl₂ + AgNO₃ → Ca(NO₃)₂ + AgCl | CaCl2 + AgNO3 = Ca(NO3)2 + AgCl",
+                name="Equation Balancer",
                 values=[' '],
                 relx=1,
                 rely=9,
@@ -545,7 +545,8 @@ if __name__ == "__main__":
         sys.exit()
     
     elif sys.argv[1] == "-compound":
-        print(analyze(sys.argv[2]))
+        for line in analyze(sys.argv[2]):
+            print(str(line))
         sys.exit()
     
     elif sys.argv[1] == "-equation":
@@ -566,5 +567,6 @@ if __name__ == "__main__":
         print("-compound:  Analyze a compound")
         print("-element: Analyze an element")
         print("-equation: Balance an equation (in quotes)")    
+        print("Format: CaCl₂ + AgNO₃ → Ca(NO₃)₂ + AgCl | CaCl2 + AgNO3 = Ca(NO3)2 + AgCl")
         sys.exit()
 
