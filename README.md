@@ -24,13 +24,13 @@ For quick calculations without the GUI, you can use these console commands.
 
 `Usage: ptable [-options]
 
--help:   Show this message
+-h:   Show this message
 
--compound:  Analyze a compound
+-c:  Analyze a compound
 
--element: Analyze an element
+-el: Analyze an element. pipe to grep to isolate info
 
--equation: Balance an equation (in quotes)`
+-eq: Balance an equation (in quotes)`
 
 This program is a personal project, and I am only a chemistry student not an expert. Please feel free to suggest corrections and new features!
 

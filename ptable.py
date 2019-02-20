@@ -544,29 +544,29 @@ if __name__ == "__main__":
         print("One argument at a time")
         sys.exit()
     
-    elif sys.argv[1] == "-compound":
+    elif sys.argv[1] == "-c":
         for line in analyze(sys.argv[2]):
             print(str(line))
         sys.exit()
     
-    elif sys.argv[1] == "-equation":
+    elif sys.argv[1] == "-eq":
         print(chemInfo[sys.argv[2]])
         sys.exit()
     
-    elif sys.argv[1] == "-element":
+    elif sys.argv[1] == "-el":
         from elements import elementStats
         data = elementStats(sys.argv[2])
         for i in data:
             print(i, data[i])
         sys.exit()
 
-    elif sys.argv[1] == "-help":
+    elif sys.argv[1] == "-h":
         print("pTable Help:")
         print("ptable [-options]")
-        print("-help:   Show this message")
-        print("-compound:  Analyze a compound")
-        print("-element: Analyze an element")
-        print("-equation: Balance an equation (in quotes)")    
+        print("-h:   Show this message")
+        print("-c:  Analyze a compound")
+        print("-el: Analyze an element")
+        print("-eq: Balance an equation (in quotes)")    
         print("Format: CaCl₂ + AgNO₃ → Ca(NO₃)₂ + AgCl | CaCl2 + AgNO3 = Ca(NO3)2 + AgCl")
         sys.exit()
 
