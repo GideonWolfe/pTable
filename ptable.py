@@ -567,6 +567,8 @@ if __name__ == "__main__":
         print("-c:  Analyze a compound")
         print("-el: Analyze an element")
         print("-eq: Balance an equation (in quotes)")    
-        print("Format: CaCl₂ + AgNO₃ → Ca(NO₃)₂ + AgCl | CaCl2 + AgNO3 = Ca(NO3)2 + AgCl")
+        print("  Format: CaCl₂ + AgNO₃ → Ca(NO₃)₂ + AgCl | CaCl2 + AgNO3 = Ca(NO3)2 + AgCl")
+        print("")    
+        print('Database: Press l to locate, gg to jump to top, G to jump to bottom')
         sys.exit()
 
