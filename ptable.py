@@ -270,7 +270,6 @@ class mainForm(npyscreen.ActionFormMinimal):
                 rely = self.database.rely,
                 value = '',
                 relx = self.database.relx+53,
-                values =  ["", "Scratch sheet for notes, not saved on exit"],
                 editable = True,
                 editw = 1,
                 width = 70,
@@ -282,6 +281,7 @@ class mainForm(npyscreen.ActionFormMinimal):
                 relx = self.notes.relx+2,
                 rely = self.notes.rely+2,
                 use_two_lines = True,
+                height = 20,
                 begin_entry_at = 2,
                 width = 43)
 
