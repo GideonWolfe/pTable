@@ -550,7 +550,7 @@ if __name__ == "__main__":
         sys.exit()
     
     elif sys.argv[1] == "-eq":
-        print(chemInfo[sys.argv[2]])
+        print(solveEq(sys.argv[2]))
         sys.exit()
     
     elif sys.argv[1] == "-el":
