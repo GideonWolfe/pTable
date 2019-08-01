@@ -22,7 +22,8 @@ to run pTable, simply navigate to the pTable directory and run ptable.py.
 
 For quick calculations without the GUI, you can use these console commands.
 
-`Usage: ptable [-options]
+```
+Usage: ptable [-options]
 
 -h:   Show this message
 
@@ -30,7 +31,8 @@ For quick calculations without the GUI, you can use these console commands.
 
 -el: Analyze an element. pipe to grep to isolate info
 
--eq: Balance an equation (in quotes)`
+-eq: Balance an equation (in quotes)
+```
 
 This program is a personal project, and I am only a chemistry student not an expert. Please feel free to suggest corrections and new features!
 
